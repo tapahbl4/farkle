@@ -1,0 +1,156 @@
+.field {
+  background: green;
+  height: 100%;
+
+  border: 10px solid #a06213;
+  border-radius: 20px;
+
+  &__left {
+    color: white;
+    padding-top: 10px;
+  }
+
+  &__center {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 20px;
+  }
+
+  &__right {
+    padding-top: 10px;
+    h4 {
+      text-align: center;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.total {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  font: bold 35px "Arial";
+}
+
+.rounds {
+  margin-bottom: 20px !important;
+
+  &-item {
+    padding: 2px 0;
+
+    &.active .num {
+      border-color: black;
+    }
+
+    .num {
+      display: inline-block;
+      width: 35px;
+      text-align: center;
+      background: darkgoldenrod;
+      border-radius: 5px;
+      border: 2px solid transparent;
+    }
+
+    .value {
+      display: inline-block;
+      float: right;
+      line-height: 32px;
+
+      &.hide {
+        display: none;
+      }
+    }
+  }
+}
+
+.combinations {
+  & .text {
+    position: relative;
+    top: -3px;
+    padding: 0 2px;
+    font-size: 20px;
+  }
+
+  li {
+    span { display: inline-block;}
+    .cost { float: right;  line-height: 25px; }
+  }
+}
+
+.birdcage {
+  height: 0;
+  width: 150px;
+  border-top: 200px solid gray;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  position: absolute;
+  bottom: 30px;
+  transform: rotate(25deg);
+}
+
+.ztable {
+  &-cell {
+    width: var(--ztable-cell-size) !important;
+    height: var(--ztable-cell-size) !important;
+    background: rgba(255, 255, 255, 0.5);
+    display: inline-block;
+    margin-right: 5px !important;
+    border-radius: 10%;
+  }
+}
+
+.dices {
+  &__item {
+    width: var(--dice-size);
+    height: var(--dice-size);
+    display: inline-block;
+    //position: absolute;
+    //left: 0;
+    //top: 0;
+    transform: rotate(1deg);
+  }
+}
+
+// Dices Global
+.d1,.d2,.d3,.d4,.d5,.d6 {
+  content: ' ';
+  width: var(--dice-size);
+  height: var(--dice-size);
+  margin-right: 2px;
+}
+.d1 { background: url('../../../assets/dices/d1.svg'); }
+.d2 { background: url('../../../assets/dices/d2.svg'); transform: rotate(90deg); }
+.d3 { background: url('../../../assets/dices/d3.svg'); }
+.d4 { background: url('../../../assets/dices/d4.svg'); }
+.d5 { background: url('../../../assets/dices/d5.svg'); }
+.d6 { background: url('../../../assets/dices/d6.svg'); transform: rotate(90deg); }
+
+button.action {
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  outline: none;
+  padding: 3px 0;
+  background: darkcyan;
+  color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+
+  &:not(.disabled):active {
+    position: relative;
+    left: 1px;
+    top: 1px;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    box-shadow: none;
+    cursor: initial;
+  }
+}

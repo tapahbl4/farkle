@@ -1,0 +1,59 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+:root {
+  --ztable-cell-size: 50px;
+  --dice-size: 20px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: aqua;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  &__global {
+    height: 100%;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+.logo {
+  max-width: 256px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font: bold 70px "Comic Sans MS";
+  color: white;
+  border: 10px solid black;
+  border-radius: 20px;
+  line-height: 1.1;
+  background: #de3e0b;
+  text-shadow: 2px 4px black;
+  box-shadow: 1px 1px 10px black;
+
+  &__small {
+    font-size: 30px;
+    max-width: 120px;
+    border-width: 5px;
+    border-radius: 10px;
+    line-height: 1.2;
+  }
+}
+
+.menu {
+  a {
+    text-decoration: none;
+  }
+}
