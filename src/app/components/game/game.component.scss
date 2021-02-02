@@ -94,6 +94,11 @@
 }
 
 .ztable {
+  &-row {
+    margin-bottom: 5px;
+    height: var(--ztable-cell-size) !important;
+  }
+
   &-cell {
     width: var(--ztable-cell-size) !important;
     height: var(--ztable-cell-size) !important;
@@ -101,6 +106,14 @@
     display: inline-block;
     margin-right: 5px !important;
     border-radius: 10%;
+
+    &.hide {
+      display: none;
+    }
+
+    &.active {
+      box-shadow: 0 0 15px #fff700;
+    }
   }
 }
 

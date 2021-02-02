@@ -1,19 +1,16 @@
 import {DiceValue, IDice} from '../interfaces/idice';
+import {RandomService} from '../services/random.service';
 
 export class Dice implements IDice {
   isActive: boolean;
   isSaved: boolean;
   value: DiceValue;
+  humanValue: number;
 
-  constructor(value: DiceValue = DiceValue.NONE) {
-    this.value = value;
+  constructor() {
+    this.value = this.generate();
     this.isSaved = false;
     this.isActive = false;
-  }
-
-  setValue(value: DiceValue): IDice {
-    this.value = value;
-    return this;
   }
 
   toggleActive(): boolean {
@@ -22,7 +19,13 @@ export class Dice implements IDice {
   }
 
   toggleSave(): boolean {
-    this.isSaved = !this.isSaved
+    this.isSaved = !this.isSaved;
     return this.isSaved;
+  }
+
+  generate(): DiceValue {
+    this.value = RandomService.getRandomFromEnum(DiceValue);
+    this.humanValue = Number(this.value);
+    return this.value;
   }
 }

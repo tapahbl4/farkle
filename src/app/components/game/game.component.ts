@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ITurn} from '../../interfaces/iturn';
 import {Constants} from '../../constants';
 import {CalcService} from '../../services/calc.service';
+import {Turn} from '../../classes/turn';
 
 @Component({
   selector: 'app-game',
@@ -11,7 +12,6 @@ import {CalcService} from '../../services/calc.service';
 export class GameComponent implements OnInit {
   round: number;
   ztable: any[];
-  currentThrow: number[];
   currentTurn: number;
   turns: ITurn[];
 
@@ -22,8 +22,7 @@ export class GameComponent implements OnInit {
   }
 
   next() {
-    CalcService.proceed([2, 3, 5, 6, 1, 4]);
-    // let turnResult = this.turns[this.currentTurn].next();
+    //
   }
 
   newGame() {
@@ -31,7 +30,7 @@ export class GameComponent implements OnInit {
     this.currentTurn = 1;
     this.generateEmptyZtable();
     for (let i = 1; i <= Constants.TURN_COUNT; i++) {
-      // this.turns.push(new Turn(i));
+      this.turns.push(new Turn(i));
     }
   }
 

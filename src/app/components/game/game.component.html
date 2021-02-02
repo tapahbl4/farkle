@@ -18,9 +18,23 @@
         <div class="ztable-cell" *ngFor="let cell of line;"></div>
       </div>
     </div>
-    <div class="birdcage" (click)="next()"></div>
-    <div class="dices">
-      <div class="dices__item" *ngFor="let d of currentThrow;"></div>
+    <button class="action" (click)="turns[currentTurn].next()">Shuffle</button>
+    <div class="ztable" style="margin-top: 50px;">
+      <div class="ztable-row current">
+        <div class="ztable-cell d{{dice.humanValue}}"
+             *ngFor="let dice of turns[currentTurn].dices"
+             [class.hide]="dice.isSaved"
+             (click)="dice.toggleSave()"
+             [class.active]="dice.isActive"
+        ></div>
+      </div>
+      <div class="ztable-row saved">
+        <div class="ztable-cell d{{dice.humanValue}}"
+             *ngFor="let dice of turns[currentTurn].dices"
+             [class.hide]="!dice.isSaved"
+             (click)="dice.toggleSave()"
+        ></div>
+      </div>
     </div>
   </div>
   <div class="col field__right">
