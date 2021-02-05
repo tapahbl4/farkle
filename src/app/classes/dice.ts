@@ -6,11 +6,12 @@ export class Dice implements IDice {
   isSaved: boolean;
   value: DiceValue;
   humanValue: number;
+  savedStage: number;
 
   constructor() {
     this.value = this.generate();
-    this.isSaved = false;
-    this.isActive = false;
+    this.isSaved = this.isActive = false;
+    this.savedStage = 0;
   }
 
   toggleActive(): boolean {

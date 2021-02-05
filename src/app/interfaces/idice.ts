@@ -11,6 +11,7 @@ export interface IDice {
   isActive: boolean;
   isSaved: boolean;
   humanValue: number;
+  savedStage: number;
   toggleActive(): boolean;
   toggleSave(): boolean;
   generate(): DiceValue;

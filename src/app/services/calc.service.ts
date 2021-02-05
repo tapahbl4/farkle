@@ -36,7 +36,7 @@ export class CalcService {
   static checkSets(dices: IDice[], marked: boolean = false): boolean|Result[] {
     let setIndex = 0, multiplier = 0, isSet = false, results = [];
     if (dices.length >= 3) {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < dices.length - 2; i++) {
         if (dices[i].value == dices[i + 1].value && dices[i].value == dices[i + 2].value) {
           if ((i > 0 && dices[i].value == dices[i - 1].value)
             || (i > 1 && dices[i].value == dices[i - 2].value)

@@ -97,6 +97,23 @@
   &-row {
     margin-bottom: 5px;
     height: var(--ztable-cell-size) !important;
+
+    .ztable-cell {
+      background-size: calc(var(--ztable-cell-size) * 3) !important;
+      &.d1 { background-position: 250px 200px; }
+      &.d2 { background-position: 200px 200px; transform: rotate(180deg); }
+      &.d3 { background-position: 400px 400px; transform: rotate(-90deg); }
+      &.d4 { background-position: 651px 400px; }
+      &.d5 { background-position: 0 350px; transform: rotate(180deg); }
+      &.d6 { background-position: 0 250px; transform: rotate(-90deg); }
+    }
+
+    &.current .ztable-cell {
+      position: relative;
+      left: 0;
+      top: 0;
+      transform: rotate(0deg);
+    }
   }
 
   &-cell {
@@ -105,7 +122,7 @@
     background: rgba(255, 255, 255, 0.5);
     display: inline-block;
     margin-right: 5px !important;
-    border-radius: 10%;
+    border-radius: 15%;
 
     &.hide {
       display: none;
@@ -117,31 +134,43 @@
   }
 }
 
-.dices {
-  &__item {
-    width: var(--dice-size);
-    height: var(--dice-size);
-    display: inline-block;
-    //position: absolute;
-    //left: 0;
-    //top: 0;
-    transform: rotate(1deg);
-  }
-}
-
 // Dices Global
+//.dice-theme {
+//  &-white-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-white-dots.png');background-size: calc(var(--dice-size) * 3); } }
+//  &-white { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-white.png'); } }
+//  &-yellow-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-yellow-dots.png'); } }
+//  &-yellow { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-yellow.png'); } }
+//  &-black-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-black-dots.png'); } }
+//  &-black { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-black.png'); } }
+//  &-blue-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue-dots.png'); } }
+//  &-blue { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue.png'); } }
+//  &-blue-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue-dots.png'); } }
+//  &-blue { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue.png'); } }
+//  &-green-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-green-dots.png'); } }
+//  &-green { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-green.png'); } }
+//  &-red-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-red-dots.png'); } }
+//  &-red { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-red.png'); } }
+//  &-gray-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-normal-dots.png'); } }
+//  &-gray { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-normal.png'); } }
+//}
+
 .d1,.d2,.d3,.d4,.d5,.d6 {
   content: ' ';
   width: var(--dice-size);
   height: var(--dice-size);
   margin-right: 2px;
+  border-radius: 4px;
+  background: url('../../../assets/dices/d6-white-dots.png');
+  background-size: calc(var(--dice-size) * 3);
+  z-index: 100;
 }
-.d1 { background: url('../../../assets/dices/d1.svg'); }
-.d2 { background: url('../../../assets/dices/d2.svg'); transform: rotate(90deg); }
-.d3 { background: url('../../../assets/dices/d3.svg'); }
-.d4 { background: url('../../../assets/dices/d4.svg'); }
-.d5 { background: url('../../../assets/dices/d5.svg'); }
-.d6 { background: url('../../../assets/dices/d6.svg'); transform: rotate(90deg); }
+
+.d1 { background-position: 340px 680px; }
+.d2 { background-position: 680px 680px; transform: rotate(180deg); }
+.d3 { background-position: 340px 340px; transform: rotate(-90deg); }
+.d4 { background-position: 680px 340px; }
+.d5 { background-position: 0 680px; transform: rotate(180deg); }
+.d6 { background-position: 0 340px; transform: rotate(-90deg); }
 
 button.action {
   width: 100%;
@@ -166,4 +195,15 @@ button.action {
     box-shadow: none;
     cursor: initial;
   }
+}
+
+.farkle-label {
+  position: absolute;
+  z-index: 1000;
+  left: calc(50% - 150px);
+  top: 45%;
+  text-align: center;
+  display: inline-block;
+  width: 300px;
+  font: bold 50px Arial;
 }

@@ -1,39 +1,37 @@
-<div class="field row">
+<div class="field row dice-theme-white-dots">
   <div class="col-2 field__left">
-    <div class="logo logo__small">Zonk</div>
-    <div class="total">1000</div>
+    <div class="logo logo__small">Farkle</div>
+    <div class="total">{{getScore()}}</div>
     <ul class="rounds">
       <li class="rounds-item"
         *ngFor="let turn of turns;"
         [class.active]="currentTurn == turn.turn">
-        <span class="num">{{turn.turn}}</span>
-        <span class="value" [class.hide]="currentTurn < turn.turn">{{turn.isFarkle ? 'Zonk' : turn.score}}</span>
+        <span class="num">{{turn.turn + 1}}</span>
+        <span class="value" [class.hide]="currentTurn < turn.turn">{{turn.isFarkle ? 'Farkle' : turn.totalScore + turn.score}}</span>
       </li>
     </ul>
-    <button class="action">Get</button>
+    <button class="action" (click)="getScore(true)">Get</button>
   </div>
   <div class="col-6 field__center">
     <div class="ztable">
-      <div class="ztable-row" *ngFor="let line of ztable;">
-        <div class="ztable-cell" *ngFor="let cell of line;"></div>
+      <div class="ztable-row" *ngFor="let line of viewTable; let i = index;">
+        <div class="ztable-cell d{{turns[currentTurn].availableDices(true, i + 1)[j] ? turns[currentTurn].availableDices(true, i + 1)[j].humanValue : ''}}"
+             *ngFor="let cell of line; let j = index;"
+             (click)="turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j].toggleSave(); turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j].savedStage = 0;  updateScore();"></div>
       </div>
     </div>
-    <button class="action" (click)="turns[currentTurn].next()">Shuffle</button>
-    <div class="ztable" style="margin-top: 50px;">
+    <button class="action" (click)="next()">Shuffle</button>
+    <div class="ztable" style="margin-top: 50px;" *ngIf="turns[currentTurn].started">
       <div class="ztable-row current">
         <div class="ztable-cell d{{dice.humanValue}}"
-             *ngFor="let dice of turns[currentTurn].dices"
+             *ngFor="let dice of turns[currentTurn].dices; let i = index;"
              [class.hide]="dice.isSaved"
-             (click)="dice.toggleSave()"
+             (click)="dice.toggleSave(); dice.savedStage = turns[currentTurn].savedStage; updateScore();"
              [class.active]="dice.isActive"
         ></div>
-      </div>
-      <div class="ztable-row saved">
-        <div class="ztable-cell d{{dice.humanValue}}"
-             *ngFor="let dice of turns[currentTurn].dices"
-             [class.hide]="!dice.isSaved"
-             (click)="dice.toggleSave()"
-        ></div>
+<!--        [style.left]="(randomData[i].left * 10) + 'px'"-->
+<!--        [style.top]="(randomData[i].top * 10) + 'px'"-->
+<!--        [style.transform]="'rotate(' + randomData[i].rotate + 'deg)'"-->
       </div>
     </div>
   </div>
@@ -61,3 +59,4 @@
     </ul>
   </div>
 </div>
+<div class="farkle-label" *ngIf="turns[currentTurn].isFarkle">Farkle</div>
