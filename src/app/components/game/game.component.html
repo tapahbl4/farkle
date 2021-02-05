@@ -13,17 +13,17 @@
     <button class="action" (click)="getScore(true)">Get</button>
   </div>
   <div class="col-6 field__center">
-    <div class="ztable">
-      <div class="ztable-row" *ngFor="let line of viewTable; let i = index;">
-        <div class="ztable-cell d{{turns[currentTurn].availableDices(true, i + 1)[j] ? turns[currentTurn].availableDices(true, i + 1)[j].humanValue : ''}}"
+    <div class="viewTable">
+      <div class="viewTable-row" *ngFor="let line of viewTable; let i = index;">
+        <div class="viewTable-cell d{{turns[currentTurn].availableDices(true, i + 1)[j] ? turns[currentTurn].availableDices(true, i + 1)[j].humanValue : ''}}"
              *ngFor="let cell of line; let j = index;"
              (click)="turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j].toggleSave(); turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j].savedStage = 0;  updateScore();"></div>
       </div>
     </div>
     <button class="action" (click)="next()">Shuffle</button>
-    <div class="ztable" style="margin-top: 50px;" *ngIf="turns[currentTurn].started">
-      <div class="ztable-row current">
-        <div class="ztable-cell d{{dice.humanValue}}"
+    <div class="viewTable" style="margin-top: 50px;" *ngIf="turns[currentTurn].started">
+      <div class="viewTable-row current">
+        <div class="viewTable-cell d{{dice.humanValue}}"
              *ngFor="let dice of turns[currentTurn].dices; let i = index;"
              [class.hide]="dice.isSaved"
              (click)="dice.toggleSave(); dice.savedStage = turns[currentTurn].savedStage; updateScore();"
@@ -60,3 +60,4 @@
   </div>
 </div>
 <div class="farkle-label" *ngIf="turns[currentTurn].isFarkle">Farkle</div>
+<div class="freeRoll-label" *ngIf="false">Free Roll</div>

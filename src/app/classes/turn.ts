@@ -8,20 +8,20 @@ import {IResult} from '../interfaces/iresult';
 export class Turn implements ITurn {
   dices: IDice[];
   isFarkle: boolean;
+  isPenalty: boolean;
   score: number;
   turn: number;
   totalScore: number;
   started: boolean;
-  results: IResult[];
-  prevResults: IResult[];
   savedStage: number;
   freeRolls: ITurn[];
+  freeRollTurn: number;
 
   constructor(turn: number) {
     this.turn = turn;
-    this.score = this.totalScore = this.savedStage = 0;
+    this.score = this.totalScore = this.savedStage = this.freeRollTurn = 0;
     this.dices = this.freeRolls = [];
-    this.started = this.isFarkle = false;
+    this.started = this.isFarkle = this.isPenalty = false;
     for (let i = 0; i < Constants.DICE_COUNT; i++) {
       this.dices.push(new Dice());
     }
@@ -36,10 +36,10 @@ export class Turn implements ITurn {
     this.score = 0;
     let resultArray = this.proceed(this.availableDices());
     if (resultArray instanceof Array && resultArray.length > 0) {
-      let total = 0;
-      this.prevResults = resultArray.flat();
-      this.prevResults.map((r) => { total += r.total; });
-      console.log(`Total: ${total}`, this.prevResults);
+      if (this.availableDices(true).length == Constants.DICE_COUNT) {
+        // TODO; Make free roll
+        return TurnResult.FREE_ROLL;
+      }
     } else {
       this.isFarkle = true;
       return TurnResult.FARKLE;

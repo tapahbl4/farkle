@@ -93,13 +93,13 @@
   transform: rotate(25deg);
 }
 
-.ztable {
+.viewTable {
   &-row {
     margin-bottom: 5px;
-    height: var(--ztable-cell-size) !important;
+    height: var(--viewTable-cell-size) !important;
 
-    .ztable-cell {
-      background-size: calc(var(--ztable-cell-size) * 3) !important;
+    .viewTable-cell {
+      background-size: calc(var(--viewTable-cell-size) * 3) !important;
       &.d1 { background-position: 250px 200px; }
       &.d2 { background-position: 200px 200px; transform: rotate(180deg); }
       &.d3 { background-position: 400px 400px; transform: rotate(-90deg); }
@@ -108,7 +108,7 @@
       &.d6 { background-position: 0 250px; transform: rotate(-90deg); }
     }
 
-    &.current .ztable-cell {
+    &.current .viewTable-cell {
       position: relative;
       left: 0;
       top: 0;
@@ -117,8 +117,8 @@
   }
 
   &-cell {
-    width: var(--ztable-cell-size) !important;
-    height: var(--ztable-cell-size) !important;
+    width: var(--viewTable-cell-size) !important;
+    height: var(--viewTable-cell-size) !important;
     background: rgba(255, 255, 255, 0.5);
     display: inline-block;
     margin-right: 5px !important;
@@ -197,7 +197,7 @@ button.action {
   }
 }
 
-.farkle-label {
+.farkle-label, .freeRoll-label {
   position: absolute;
   z-index: 1000;
   left: calc(50% - 150px);

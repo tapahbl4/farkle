@@ -14,6 +14,7 @@ export class GameComponent implements OnInit {
   currentTurn: number;
   turns: ITurn[];
   randomData: any[];
+  farkleCount: number;
 
   ngOnInit(): void {
     this.newGame();
@@ -24,7 +25,16 @@ export class GameComponent implements OnInit {
     let result = this.turns[this.currentTurn].next();
     console.log(`Turn ${this.currentTurn}`, result === TurnResult.FARKLE ? 'Farkle' : '');
     if (result === TurnResult.FARKLE) {
-      this.currentTurn++;
+      this.turns[this.currentTurn].totalScore = this.turns[this.currentTurn].score = 0;
+      this.farkleCount++;
+      // TODO: Add penalty mechanics for farkle
+      if (this.farkleCount % 3 === 0) {
+        this.turns[this.currentTurn].isPenalty = true;
+        this.turns[this.currentTurn].totalScore = -500;
+      }
+      if (this.currentTurn == Constants.TURN_COUNT) {
+        this.endGame();
+      } else this.currentTurn++;
     }
   }
 
@@ -34,16 +44,24 @@ export class GameComponent implements OnInit {
       if (turn.totalScore + turn.score < Constants.MIN_TURN_SCORE) return;
       turn.totalScore += turn.score;
       turn.score = 0;
-      this.currentTurn++;
+      if (this.currentTurn == Constants.TURN_COUNT) {
+        this.endGame();
+      } else this.currentTurn++;
       return;
     }
     let total = 0;
-    this.turns.filter((item) => { return item.turn <= this.currentTurn && !item.isFarkle; })
+    this.turns.filter((item) => { return item.turn <= this.currentTurn; })
       .map((item) => {
         total += item.totalScore;
         if (item.turn == this.currentTurn) total += item.score;
+        // TODO: Add recursive for free rolls
       });
     return total;
+  }
+
+  endGame(): void {
+    // TODO: Make game over mechanics
+    console.log(`Your score: ${this.getScore()}`);
   }
 
   updateScore(): void {
@@ -53,7 +71,7 @@ export class GameComponent implements OnInit {
 
   newGame(): void {
     this.destroyGame();
-    this.currentTurn = 0;
+    this.currentTurn = this.farkleCount = 0;
     this.generateEmptyViewTable();
     for (let i = 0; i < Constants.TURN_COUNT; i++) {
       this.turns.push(new Turn(i));
