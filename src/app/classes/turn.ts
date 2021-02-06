@@ -52,6 +52,7 @@ export class Turn implements ITurn {
     let resultArray = this.proceed(this.availableDices(true, this.savedStage));
     if (resultArray instanceof Array && resultArray.length > 0) {
       resultArray.flat().map((r) => { this.score += r.total; });
+      // TODO: Add free rolls score
     }
     return this.score;
   }

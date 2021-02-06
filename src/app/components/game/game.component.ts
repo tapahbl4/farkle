@@ -15,16 +15,20 @@ export class GameComponent implements OnInit {
   turns: ITurn[];
   randomData: any[];
   farkleCount: number;
+  farkleLabel: boolean;
+  isShownModal: boolean;
 
   ngOnInit(): void {
+    this.isShownModal = false;
     this.newGame();
   }
 
   next() {
     this.generateRandomPositions();
     let result = this.turns[this.currentTurn].next();
-    console.log(`Turn ${this.currentTurn}`, result === TurnResult.FARKLE ? 'Farkle' : '');
+    console.log(`Turn ${this.currentTurn}`, result);
     if (result === TurnResult.FARKLE) {
+      this.farkleLabel = true;
       this.turns[this.currentTurn].totalScore = this.turns[this.currentTurn].score = 0;
       this.farkleCount++;
       // TODO: Add penalty mechanics for farkle
@@ -34,7 +38,7 @@ export class GameComponent implements OnInit {
       }
       if (this.currentTurn == Constants.TURN_COUNT) {
         this.endGame();
-      } else this.currentTurn++;
+      }
     }
   }
 
@@ -98,5 +102,10 @@ export class GameComponent implements OnInit {
         rotate: RandomService.getRandomInt(0, 90)
       });
     }
+  }
+
+  farkleAccept() {
+    this.farkleLabel = false;
+    this.currentTurn++;
   }
 }

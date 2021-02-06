@@ -59,5 +59,24 @@
     </ul>
   </div>
 </div>
-<div class="farkle-label" *ngIf="turns[currentTurn].isFarkle">Farkle</div>
-<div class="freeRoll-label" *ngIf="false">Free Roll</div>
+<div class="all__bg" *ngIf="farkleLabel" (click)="farkleAccept();">
+  <div class="farkle-label">Farkle</div>
+</div>
+<div class="all__bg" *ngIf="false">
+  <div class="freeRoll-label">Free Roll</div>
+</div>
+
+<div class="myModal__bg" *ngIf="isShownModal">
+  <div class="myModal">
+    <div class="myModal-title">
+      <span>Title</span>
+      <button (click)="isShownModal = false;">X</button>
+    </div>
+    <div class="myModal-body">
+      <p>Body</p>
+      <div class="myModal-body__control">
+        <button class="btn btn-primary" (click)="isShownModal = false;">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
