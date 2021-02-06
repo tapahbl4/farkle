@@ -1,3 +1,4 @@
+
 .field {
   background: green;
   height: 100%;
@@ -98,16 +99,6 @@
     margin-bottom: 5px;
     height: var(--viewTable-cell-size) !important;
 
-    .viewTable-cell {
-      background-size: calc(var(--viewTable-cell-size) * 3) !important;
-      &.d1 { background-position: 250px 200px; }
-      &.d2 { background-position: 200px 200px; transform: rotate(180deg); }
-      &.d3 { background-position: 400px 400px; transform: rotate(-90deg); }
-      &.d4 { background-position: 651px 400px; }
-      &.d5 { background-position: 0 350px; transform: rotate(180deg); }
-      &.d6 { background-position: 0 250px; transform: rotate(-90deg); }
-    }
-
     &.current .viewTable-cell {
       position: relative;
       left: 0;
@@ -123,54 +114,25 @@
     display: inline-block;
     margin-right: 5px !important;
     border-radius: 15%;
+    background-size: calc(var(--viewTable-cell-size) * 3) !important;
+
+    &.d1 { background-position: calc(var(--viewTable-cell-size) * 2) var(--viewTable-cell-size) !important; }
+    &.d2 { background-position: var(--viewTable-cell-size) var(--viewTable-cell-size) !important; transform: rotate(180deg) !important; }
+    &.d3 { background-position: calc(var(--viewTable-cell-size) * 2) calc(var(--viewTable-cell-size) * 2) !important; transform: rotate(-90deg) !important; }
+    &.d4 { background-position: var(--viewTable-cell-size) calc(var(--viewTable-cell-size) * 2) !important; }
+    &.d5 { background-position: 0 var(--viewTable-cell-size) !important; transform: rotate(180deg) !important; }
+    &.d6 { background-position: 0 calc(var(--viewTable-cell-size) * 2) !important; transform: rotate(-90deg) !important; }
 
     &.hide {
       display: none;
     }
 
     &.active {
-      box-shadow: 0 0 15px #fff700;
+      box-shadow: 0 0 2px black,
+        0 0 15px #fff700;
     }
   }
 }
-
-// Dices Global
-//.dice-theme {
-//  &-white-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-white-dots.png');background-size: calc(var(--dice-size) * 3); } }
-//  &-white { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-white.png'); } }
-//  &-yellow-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-yellow-dots.png'); } }
-//  &-yellow { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-yellow.png'); } }
-//  &-black-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-black-dots.png'); } }
-//  &-black { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-black.png'); } }
-//  &-blue-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue-dots.png'); } }
-//  &-blue { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue.png'); } }
-//  &-blue-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue-dots.png'); } }
-//  &-blue { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-blue.png'); } }
-//  &-green-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-green-dots.png'); } }
-//  &-green { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-green.png'); } }
-//  &-red-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-red-dots.png'); } }
-//  &-red { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-red.png'); } }
-//  &-gray-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-normal-dots.png'); } }
-//  &-gray { .d1,.d2,.d3,.d4,.d5,.d6 { background: url('../../../assets/dices/d6-normal.png'); } }
-//}
-
-.d1,.d2,.d3,.d4,.d5,.d6 {
-  content: ' ';
-  width: var(--dice-size);
-  height: var(--dice-size);
-  margin-right: 2px;
-  border-radius: 4px;
-  background: url('../../../assets/dices/d6-white-dots.png');
-  background-size: calc(var(--dice-size) * 3);
-  z-index: 100;
-}
-
-.d1 { background-position: 340px 680px; }
-.d2 { background-position: 680px 680px; transform: rotate(180deg); }
-.d3 { background-position: 340px 340px; transform: rotate(-90deg); }
-.d4 { background-position: 680px 340px; }
-.d5 { background-position: 0 680px; transform: rotate(180deg); }
-.d6 { background-position: 0 340px; transform: rotate(-90deg); }
 
 button.action {
   width: 100%;
@@ -203,7 +165,9 @@ button.action {
   display: inline-block;
   font: bold 50px Arial;
   color: lightgray;
-  text-shadow: 0 0 15px lightblue;
+  text-shadow: 0 0 2px black,
+    0 0 15px lightblue;
+  cursor: pointer;
 }
 
 .all__bg {
@@ -214,3 +178,5 @@ button.action {
   display: grid;
   place-items: center;
 }
+
+@import "dices";

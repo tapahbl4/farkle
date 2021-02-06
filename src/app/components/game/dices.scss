@@ -1,0 +1,35 @@
+// Dices Global
+.d1,.d2,.d3,.d4,.d5,.d6 {
+  content: ' ';
+  width: var(--dice-size);
+  height: var(--dice-size);
+  margin-right: 2px;
+  border-radius: 4px;
+  //background: rgba(255, 255, 255, 0.5);
+  background: var(--theme-dice-white-dots);
+  background-size: calc(var(--dice-size) * 3);
+  z-index: 100;
+}
+
+.d1 { background-position: calc(var(--dice-size) * 2) var(--dice-size); }
+.d2 { background-position: var(--dice-size) var(--dice-size); transform: rotate(180deg); }
+.d3 { background-position: calc(var(--dice-size) * 2) calc(var(--dice-size) * 2); transform: rotate(-90deg); }
+.d4 { background-position: var(--dice-size) calc(var(--dice-size) * 2); }
+.d5 { background-position: 0 var(--dice-size); transform: rotate(180deg); }
+.d6 { background-position: 0 calc(var(--dice-size) * 2); transform: rotate(-90deg); }
+
+// Dices themes
+.theme-dices-black-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-black-dots); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-black { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-black); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-white-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-white-dots); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-white { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-white); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-red-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-red-dots); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-red { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-red); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-green-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-green-dots); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-green { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-green); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-gray-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-gray-dots); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-gray { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-gray); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-yellow-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-yellow-dots); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-yellow { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-yellow); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-blue-dots { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-blue-dots); background-size: calc(var(--dice-size) * 3); }}
+.theme-dices-blue { .d1,.d2,.d3,.d4,.d5,.d6 { background: var(--theme-dice-blue); background-size: calc(var(--dice-size) * 3); }}

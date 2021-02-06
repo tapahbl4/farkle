@@ -3,6 +3,23 @@
 :root {
   --viewTable-cell-size: 50px;
   --dice-size: 20px;
+  --dice-sprite-size: 340px;
+
+  // Dices Themes
+  --theme-dice-white-dots: url(./assets/dices/d6-white-dots.png);
+  --theme-dice-white: url(./assets/dices/d6-white.png);
+  --theme-dice-yellow-dots: url(./assets/dices/d6-yellow-dots.png);
+  --theme-dice-yellow: url(./assets/dices/d6-yellow.png);
+  --theme-dice-black-dots: url(./assets/dices/d6-black-dots.png);
+  --theme-dice-black: url(./assets/dices/d6-black.png);
+  --theme-dice-blue-dots: url(./assets/dices/d6-blue-dots.png);
+  --theme-dice-blue: url(./assets/dices/d6-blue.png);
+  --theme-dice-green-dots: url(./assets/dices/d6-green-dots.png);
+  --theme-dice-green: url(./assets/dices/d6-green.png);
+  --theme-dice-red-dots: url(./assets/dices/d6-red-dots.png);
+  --theme-dice-red: url(./assets/dices/d6-red.png);
+  --theme-dice-gray-dots: url(./assets/dices/d6-normal-dots.png);
+  --theme-dice-gray: url(./assets/dices/d6-normal.png);
 }
 
 html, body {

@@ -35,16 +35,19 @@ export class Turn implements ITurn {
     this.totalScore += this.score;
     this.score = 0;
     let resultArray = this.proceed(this.availableDices());
-    if (resultArray instanceof Array && resultArray.length > 0) {
-      if (this.availableDices(true).length == Constants.DICE_COUNT) {
-        // TODO; Make free roll
-        return TurnResult.FREE_ROLL;
+    console.log(`Turn ${this.turn}`, resultArray);
+    if (resultArray instanceof Array) {
+      resultArray = resultArray.flat();
+      if (resultArray.length > 0) {
+        if (this.availableDices(true).length == Constants.DICE_COUNT) {
+          // TODO; Make free roll
+          return TurnResult.FREE_ROLL;
+        }
+        return TurnResult.NONE;
       }
-    } else {
-      this.isFarkle = true;
-      return TurnResult.FARKLE;
     }
-    return TurnResult.NONE;
+    this.isFarkle = true;
+    return TurnResult.FARKLE;
   }
 
   update(): number {
