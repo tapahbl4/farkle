@@ -8,6 +8,7 @@ import { HelpComponent } from './components/help/help.component';
 import { AboutComponent } from './components/about/about.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { GameComponent } from './components/game/game.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { GameComponent } from './components/game/game.component';
     HelpComponent,
     AboutComponent,
     MenuComponent,
-    GameComponent
+    GameComponent,
+    ModalComponent
   ],
   imports: [
     NgbModule,

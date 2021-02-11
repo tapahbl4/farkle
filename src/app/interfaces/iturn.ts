@@ -16,10 +16,12 @@ export interface ITurn {
   savedStage: number;
   freeRolls: ITurn[];
   freeRollTurn: number;
+  isFreeRoll: boolean;
 
   next(): TurnResult;
   update(): number;
   proceed(dices: IDice[]): boolean|IResult[];
   availableDices(saved: boolean, stage: number): IDice[];
   generate(): IDice[];
+  addFreeRoll(): void;
 }

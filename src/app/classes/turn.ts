@@ -16,12 +16,14 @@ export class Turn implements ITurn {
   savedStage: number;
   freeRolls: ITurn[];
   freeRollTurn: number;
+  prevResults: IResult[];
+  isFreeRoll: boolean;
 
   constructor(turn: number) {
     this.turn = turn;
     this.score = this.totalScore = this.savedStage = this.freeRollTurn = 0;
-    this.dices = this.freeRolls = [];
-    this.started = this.isFarkle = this.isPenalty = false;
+    this.dices = this.freeRolls = this.prevResults = [];
+    this.started = this.isFarkle = this.isPenalty = this.isFreeRoll = false;
     for (let i = 0; i < Constants.DICE_COUNT; i++) {
       this.dices.push(new Dice());
     }
@@ -29,20 +31,25 @@ export class Turn implements ITurn {
 
   next(): TurnResult {
     if (!this.started) this.started = true;
-    if (this.savedStage > 0 && this.availableDices(true, this.savedStage).length == 0) return TurnResult.EMPTY_STAGE;
+    if (this.isFreeRoll) {
+      this.isFreeRoll = false;
+      return this.freeRolls[this.freeRolls.length - 1].next();
+    }
+    if (this.savedStage > 0) {
+      if (this.availableDices(true, this.savedStage).length == 0 )
+        return TurnResult.EMPTY_STAGE;
+      let stageResults = this.proceed(this.availableDices(true, this.savedStage));
+      stageResults = stageResults instanceof Array ? stageResults.flat() : [];
+      if (stageResults.length === 0) return TurnResult.EMPTY_STAGE;
+    }
     if (!this.isFarkle) this.generate();
     this.savedStage++;
     this.totalScore += this.score;
     this.score = 0;
     let resultArray = this.proceed(this.availableDices());
-    console.log(`Turn ${this.turn}`, resultArray);
     if (resultArray instanceof Array) {
       resultArray = resultArray.flat();
       if (resultArray.length > 0) {
-        if (this.availableDices(true).length == Constants.DICE_COUNT) {
-          // TODO; Make free roll
-          return TurnResult.FREE_ROLL;
-        }
         return TurnResult.NONE;
       }
     }
@@ -79,5 +86,10 @@ export class Turn implements ITurn {
   generate(): IDice[] {
     this.dices.map((item) => { if (!item.isSaved) item.generate()});
     return this.availableDices();
+  }
+
+  addFreeRoll(): void {
+    this.freeRolls.push(new Turn(this.freeRolls.length));
+    this.isFreeRoll = true;
   }
 }

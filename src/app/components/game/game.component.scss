@@ -12,9 +12,18 @@
   }
 
   &__center {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    border-left: 1px solid #286502;
+    border-right: 1px solid #286502;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    .full {
+      height: 100%;
+      margin: 15px 0;
+    }
   }
 
   &__right {
@@ -128,8 +137,7 @@
     }
 
     &.active {
-      box-shadow: 0 0 2px black,
-        0 0 15px #fff700;
+      animation: pulse 3s infinite;
     }
   }
 }
@@ -180,3 +188,18 @@ button.action {
 }
 
 @import "dices";
+
+@keyframes pulse {
+  0% {
+    box-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 2px black,
+    0 0 15px #fff700;
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}

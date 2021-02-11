@@ -4,30 +4,29 @@
     <div class="logo logo__small">Farkle</div>
     <div class="total">{{getScore()}}</div>
     <ul class="rounds">
-      <li class="rounds-item"
-        *ngFor="let turn of turns;"
-        [class.active]="currentTurn == turn.turn">
+      <li class="rounds-item" *ngFor="let turn of turns;" [class.active]="currentTurn == turn.turn">
         <span class="num">{{turn.turn + 1}}</span>
-        <span class="value" [class.hide]="currentTurn < turn.turn">{{turn.isFarkle ? 'Farkle' : turn.totalScore + turn.score}}</span>
+        <span class="value" [class.hide]="currentTurn < turn.turn">
+          {{turn.isFarkle ? (turn.isPenalty ? turn.totalScore : 'Farkle') : turn.totalScore + turn.score}}
+        </span>
       </li>
     </ul>
-    <button class="action" (click)="getScore(true)">Get</button>
+    <button class="action" (click)="addToScore()">Get</button>
   </div>
   <div class="col-6 field__center">
     <div class="viewTable">
       <div class="viewTable-row" *ngFor="let line of viewTable; let i = index;">
         <div class="viewTable-cell d{{turns[currentTurn].availableDices(true, i + 1)[j] ? turns[currentTurn].availableDices(true, i + 1)[j].humanValue : ''}}"
              *ngFor="let cell of line; let j = index;"
-             (click)="turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j].toggleSave(); turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j].savedStage = 0;  updateScore();"></div>
+             (click)="toggleDice(turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j], false);"></div>
       </div>
     </div>
-    <button class="action" (click)="next()">Shuffle</button>
-    <div class="viewTable" style="margin-top: 50px;" *ngIf="turns[currentTurn].started">
+    <div class="viewTable full" *ngIf="turns[currentTurn].started">
       <div class="viewTable-row current">
         <div class="viewTable-cell d{{dice.humanValue}}"
              *ngFor="let dice of turns[currentTurn].dices; let i = index;"
              [class.hide]="dice.isSaved"
-             (click)="dice.toggleSave(); dice.savedStage = turns[currentTurn].savedStage; updateScore();"
+             (click)="toggleDice(dice, true)"
              [class.active]="dice.isActive"
         ></div>
 <!--        [style.left]="(randomData[i].left * 10) + 'px'"-->
@@ -35,6 +34,7 @@
 <!--        [style.transform]="'rotate(' + randomData[i].rotate + 'deg)'"-->
       </div>
     </div>
+    <button class="action" (click)="next()">{{turns[currentTurn].isFreeRoll ? 'Free Roll' : 'Shuffle'}}</button>
   </div>
   <div class="col field__right">
     <h4>Combinations</h4>
@@ -66,18 +66,4 @@
 <div class="all__bg" *ngIf="false">
   <div class="freeRoll-label">Free Roll</div>
 </div>
-
-<div class="myModal__bg" *ngIf="isShownModal">
-  <div class="myModal">
-    <div class="myModal-title">
-      <span>Title</span>
-      <button (click)="isShownModal = false;">X</button>
-    </div>
-    <div class="myModal-body">
-      <p>Body</p>
-      <div class="myModal-body__control">
-        <button class="btn btn-primary" (click)="isShownModal = false;">Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
+<modal-component #modal></modal-component>
