@@ -5,6 +5,7 @@ import {Turn} from '../../classes/turn';
 import {RandomService} from '../../services/random.service';
 import {ModalComponent} from '../modal/modal.component';
 import {IDice} from '../../interfaces/idice';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -12,6 +13,7 @@ import {IDice} from '../../interfaces/idice';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
+  router: Router;
   viewTable: any[];
   currentTurn: number;
   turns: ITurn[];
@@ -20,6 +22,10 @@ export class GameComponent implements OnInit {
   farkleLabel: boolean;
   farkleMultiplier: number;
   @ViewChild('modal') modal: ModalComponent;
+
+  constructor(router: Router) {
+    this.router = router;
+  }
 
   ngOnInit(): void {
     this.newGame();
@@ -32,6 +38,7 @@ export class GameComponent implements OnInit {
       this.getCurrentTurn().totalScore = this.getCurrentTurn().score = 0;
       this.farkleLabel = true;
       this.farkleCount++;
+      // TODO: Fix farkle penalty
       if (this.farkleCount === 3) {
         this.getCurrentTurn().isPenalty = true;
         this.getCurrentTurn().totalScore = -500 * (++this.farkleMultiplier);

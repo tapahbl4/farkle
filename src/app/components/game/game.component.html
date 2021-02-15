@@ -66,4 +66,4 @@
 <div class="all__bg" *ngIf="false">
   <div class="freeRoll-label">Free Roll</div>
 </div>
-<modal-component #modal></modal-component>
+<modal-component #modal (clickPrimary)="newGame();" (clickSecondary)="router.navigate(['/'])"></modal-component>

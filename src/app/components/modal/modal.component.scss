@@ -47,6 +47,10 @@
 
     &__control {
       text-align: right;
+
+      .btn {
+        margin-left: 5px;
+      }
     }
   }
 }

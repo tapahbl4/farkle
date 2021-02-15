@@ -2,12 +2,12 @@
   <div class="myModal">
     <div class="myModal-title">
       <span>{{title}}</span>
-<!--      <button (click)="isShown = false;">X</button>-->
     </div>
     <div class="myModal-body">
       <p>{{message}}</p>
       <div class="myModal-body__control">
-        <button class="btn btn-primary" (click)="isShown = false;">Ok</button>
+        <button class="btn btn-primary" (click)="isShown = false; clickPrimary.emit();">New Game</button>
+        <button class="btn btn-danger" (click)="isShown = false; clickSecondary.emit();">Exit</button>
       </div>
     </div>
   </div>
