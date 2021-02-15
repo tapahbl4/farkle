@@ -1,4 +1,4 @@
-import {Combinations, IDice} from './idice';
+import {IDice} from './idice';
 import {IResult} from './iresult';
 
 export enum TurnResult {
@@ -17,6 +17,7 @@ export interface ITurn {
   freeRolls: ITurn[];
   freeRollTurn: number;
   isFreeRoll: boolean;
+  parent: ITurn;
 
   next(): TurnResult;
   update(): number;
@@ -24,4 +25,6 @@ export interface ITurn {
   availableDices(saved: boolean, stage: number): IDice[];
   generate(): IDice[];
   addFreeRoll(): void;
+  getLastFreeRoll(): ITurn;
+  getScore(): number;
 }

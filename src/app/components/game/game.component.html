@@ -7,7 +7,7 @@
       <li class="rounds-item" *ngFor="let turn of turns;" [class.active]="currentTurn == turn.turn">
         <span class="num">{{turn.turn + 1}}</span>
         <span class="value" [class.hide]="currentTurn < turn.turn">
-          {{turn.isFarkle ? (turn.isPenalty ? turn.totalScore : 'Farkle') : turn.totalScore + turn.score}}
+          {{turn.isFarkle ? (turn.isPenalty ? turn.getScore() : 'Farkle') : turn.getScore()}}
         </span>
       </li>
     </ul>
@@ -16,15 +16,15 @@
   <div class="col-6 field__center">
     <div class="viewTable">
       <div class="viewTable-row" *ngFor="let line of viewTable; let i = index;">
-        <div class="viewTable-cell d{{turns[currentTurn].availableDices(true, i + 1)[j] ? turns[currentTurn].availableDices(true, i + 1)[j].humanValue : ''}}"
+        <div class="viewTable-cell d{{getCurrentTurn().availableDices(true, i + 1)[j] ? getCurrentTurn().availableDices(true, i + 1)[j].humanValue : ''}}"
              *ngFor="let cell of line; let j = index;"
-             (click)="toggleDice(turns[currentTurn].availableDices(true, turns[currentTurn].savedStage)[j], false);"></div>
+             (click)="toggleDice(getCurrentTurn().availableDices(true, getCurrentTurn().savedStage)[j], false);"></div>
       </div>
     </div>
-    <div class="viewTable full" *ngIf="turns[currentTurn].started">
+    <div class="viewTable full" *ngIf="getCurrentTurn().started">
       <div class="viewTable-row current">
         <div class="viewTable-cell d{{dice.humanValue}}"
-             *ngFor="let dice of turns[currentTurn].dices; let i = index;"
+             *ngFor="let dice of getCurrentTurn().dices; let i = index;"
              [class.hide]="dice.isSaved"
              (click)="toggleDice(dice, true)"
              [class.active]="dice.isActive"
@@ -47,14 +47,14 @@
       <li><span><span class="d4"></span><span class="d4"></span><span class="d4"></span></span><span class="cost">400</span></li>
       <li><span><span class="d5"></span><span class="d5"></span><span class="d5"></span></span><span class="cost">500</span></li>
       <li><span><span class="d6"></span><span class="d6"></span><span class="d6"></span></span><span class="cost">600</span></li>
-      <hr/>
+      <li><hr/></li>
       <li><span><span class="d1"></span><span class="d1"></span><span class="d1"></span><span class="text"> + </span><span class="d1"></span><span class="text"> + ...</span></span><span class="cost">1000 + 1000 + ...</span></li>
       <li><span><span class="d2"></span><span class="d2"></span><span class="d2"></span><span class="text"> + </span><span class="d2"></span><span class="text"> + ...</span></span><span class="cost">200 + 200 + ...</span></li>
       <li><span><span class="d3"></span><span class="d3"></span><span class="d3"></span><span class="text"> + </span><span class="d3"></span><span class="text"> + ...</span></span><span class="cost">300 + 300 + ...</span></li>
       <li><span><span class="d4"></span><span class="d4"></span><span class="d4"></span><span class="text"> + </span><span class="d4"></span><span class="text"> + ...</span></span><span class="cost">400 + 400 + ...</span></li>
       <li><span><span class="d5"></span><span class="d5"></span><span class="d5"></span><span class="text"> + </span><span class="d5"></span><span class="text"> + ...</span></span><span class="cost">500 + 500 + ...</span></li>
       <li><span><span class="d6"></span><span class="d6"></span><span class="d6"></span><span class="text"> + </span><span class="d6"></span><span class="text"> + ...</span></span><span class="cost">600 + 600 + ...</span></li>
-      <hr/>
+      <li><hr/></li>
       <li><span><span class="d1"></span><span class="d1"></span><span class="d2"></span><span class="d2"></span><span class="d3"></span><span class="d3"></span></span><span class="cost">750</span></li>
       <li><span><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span><span class="d5"></span><span class="d6"></span></span><span class="cost">1500</span></li>
     </ul>

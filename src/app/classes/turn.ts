@@ -18,12 +18,14 @@ export class Turn implements ITurn {
   freeRollTurn: number;
   prevResults: IResult[];
   isFreeRoll: boolean;
+  parent: ITurn;
 
-  constructor(turn: number) {
+  constructor(turn: number, parent: ITurn = null) {
     this.turn = turn;
     this.score = this.totalScore = this.savedStage = this.freeRollTurn = 0;
-    this.dices = this.freeRolls = this.prevResults = [];
+    this.dices = []; this.freeRolls = []; this.prevResults = [];
     this.started = this.isFarkle = this.isPenalty = this.isFreeRoll = false;
+    this.parent = parent;
     for (let i = 0; i < Constants.DICE_COUNT; i++) {
       this.dices.push(new Dice());
     }
@@ -54,17 +56,21 @@ export class Turn implements ITurn {
       }
     }
     this.isFarkle = true;
+    this.totalScore = this.score = 0;
     return TurnResult.FARKLE;
   }
 
   update(): number {
     this.score = 0;
-    let resultArray = this.proceed(this.availableDices(true, this.savedStage));
+    let resultArray = this.proceed(this.availableDices(true, this.savedStage)),
+      freeRollScore = 0;
     if (resultArray instanceof Array && resultArray.length > 0) {
       resultArray.flat().map((r) => { this.score += r.total; });
-      // TODO: Add free rolls score
+      if (this.freeRolls.length > 0) {
+        this.freeRolls.map((item) => { freeRollScore += item.update(); });
+      }
     }
-    return this.score;
+    return this.score + freeRollScore;
   }
 
   proceed(dices: IDice[]): boolean|IResult[] {
@@ -89,7 +95,23 @@ export class Turn implements ITurn {
   }
 
   addFreeRoll(): void {
-    this.freeRolls.push(new Turn(this.freeRolls.length));
-    this.isFreeRoll = true;
+    if (this.parent) {
+      this.parent.addFreeRoll();
+    } else {
+      this.freeRolls.push(new Turn(this.freeRolls.length, this));
+      this.isFreeRoll = true;
+    }
+  }
+
+  getLastFreeRoll(): ITurn {
+    return this.freeRolls[this.freeRolls.length - 1];
+  }
+
+  getScore(): number {
+    let freeRollScore = 0;
+    if (this.freeRolls.length > 0) {
+      this.freeRolls.map((item) => { freeRollScore += item.getScore(); });
+    }
+    return this.totalScore + this.score + freeRollScore;
   }
 }

@@ -27,14 +27,14 @@ export class GameComponent implements OnInit {
 
   next(): void {
     this.generateRandomPositions();
-    let result = this.turns[this.currentTurn].next();
+    let result = this.getCurrentTurn().next();
     if (result === TurnResult.FARKLE) {
-      this.turns[this.currentTurn].totalScore = this.turns[this.currentTurn].score = 0;
+      this.getCurrentTurn().totalScore = this.getCurrentTurn().score = 0;
       this.farkleLabel = true;
       this.farkleCount++;
       if (this.farkleCount === 3) {
-        this.turns[this.currentTurn].isPenalty = true;
-        this.turns[this.currentTurn].totalScore = -500 * (++this.farkleMultiplier);
+        this.getCurrentTurn().isPenalty = true;
+        this.getCurrentTurn().totalScore = -500 * (++this.farkleMultiplier);
         this.farkleCount = 0;
       }
       if (this.currentTurn + 1 == Constants.TURN_COUNT) {
@@ -44,10 +44,9 @@ export class GameComponent implements OnInit {
   }
 
   addToScore(): void {
-    let turn = this.turns[this.currentTurn];
-    if (turn.totalScore + turn.score < Constants.MIN_TURN_SCORE) return;
-    turn.totalScore += turn.score;
-    turn.score = 0;
+    if (this.getCurrentTurn().totalScore + this.getCurrentTurn().score < Constants.MIN_TURN_SCORE) return;
+    this.getCurrentTurn().totalScore += this.getCurrentTurn().score;
+    this.getCurrentTurn().score = 0;
     if (this.currentTurn + 1 == Constants.TURN_COUNT) {
       this.endGame();
     } else this.currentTurn++;
@@ -56,11 +55,7 @@ export class GameComponent implements OnInit {
   getScore(): number {
     let total = 0;
     this.turns.filter((item) => { return item.turn <= this.currentTurn; })
-      .map((item) => {
-        total += item.totalScore;
-        if (item.turn == this.currentTurn) total += item.score;
-        // TODO: Add recursive for free rolls
-      });
+      .map((item) => { total += item.getScore(); });
     return total;
   }
 
@@ -74,11 +69,9 @@ export class GameComponent implements OnInit {
   }
 
   updateScore(): void {
-    let turn = this.turns[this.currentTurn];
-    turn.update();
-    if (turn.availableDices(true, 0).length == Constants.DICE_COUNT) {
-      console.log('Free roll outside');
-      turn.addFreeRoll();
+    this.getCurrentTurn().update();
+    if (this.getCurrentTurn().availableDices(true, 0).length == Constants.DICE_COUNT) {
+      this.getCurrentTurn().addFreeRoll();
     }
   }
 
@@ -92,6 +85,9 @@ export class GameComponent implements OnInit {
   }
 
   destroyGame(): void {
+    this.randomData = [];
+    this.farkleLabel = false;
+    this.currentTurn = this.farkleCount = this.farkleMultiplier = 0;
     this.turns = [];
   }
 
@@ -120,8 +116,12 @@ export class GameComponent implements OnInit {
 
   toggleDice(dice: IDice, save: boolean): void {
     dice.toggleSave();
-    if (save) dice.savedStage = this.turns[this.currentTurn].savedStage;
-    else dice.savedStage = 0;
+    dice.savedStage = save ? this.getCurrentTurn().savedStage : 0;
     this.updateScore();
+  }
+
+  getCurrentTurn(): ITurn {
+    let turn = this.turns[this.currentTurn];
+    return turn.isFreeRoll ? turn.getLastFreeRoll() : turn;
   }
 }
