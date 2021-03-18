@@ -57,6 +57,14 @@ export class Turn implements ITurn {
     }
     this.isFarkle = true;
     this.totalScore = this.score = 0;
+    if (this.parent) {
+      this.parent.isFarkle = true;
+      this.parent.totalScore = this.parent.score = 0;
+      this.parent.freeRolls.map((item) => {
+        item.isFarkle = true;
+        item.totalScore = item.score = 0;
+      });
+    }
     return TurnResult.FARKLE;
   }
 

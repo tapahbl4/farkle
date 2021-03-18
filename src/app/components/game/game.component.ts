@@ -20,7 +20,6 @@ export class GameComponent implements OnInit {
   randomData: any[];
   farkleCount: number;
   farkleLabel: boolean;
-  farkleMultiplier: number;
   @ViewChild('modal') modal: ModalComponent;
 
   constructor(router: Router) {
@@ -36,17 +35,25 @@ export class GameComponent implements OnInit {
     let result = this.getCurrentTurn().next();
     if (result === TurnResult.FARKLE) {
       this.getCurrentTurn().totalScore = this.getCurrentTurn().score = 0;
+      if (this.getCurrentTurn().parent) {
+        this.getCurrentTurn().parent.totalScore = this.getCurrentTurn().parent.score = 0;
+      }
+      if (this.currentTurn > 0) {
+        let prevTurn = this.turns[this.currentTurn - 1];
+        if (prevTurn.isFarkle) this.farkleCount++;
+      }
       this.farkleLabel = true;
-      this.farkleCount++;
       // TODO: Fix farkle penalty
-      if (this.farkleCount === 3) {
+      if ((this.farkleCount + 1) % 3 === 0) {
         this.getCurrentTurn().isPenalty = true;
-        this.getCurrentTurn().totalScore = -500 * (++this.farkleMultiplier);
+        this.getCurrentTurn().totalScore = -500 * Math.floor((this.farkleCount + 1) / 3);
         this.farkleCount = 0;
       }
       if (this.currentTurn + 1 == Constants.TURN_COUNT) {
         this.endGame();
       }
+    } else {
+      this.farkleCount = 0;
     }
   }
 
@@ -84,7 +91,6 @@ export class GameComponent implements OnInit {
 
   newGame(): void {
     this.destroyGame();
-    this.currentTurn = this.farkleCount = this.farkleMultiplier = 0;
     this.generateEmptyViewTable();
     for (let i = 0; i < Constants.TURN_COUNT; i++) {
       this.turns.push(new Turn(i));
@@ -94,7 +100,7 @@ export class GameComponent implements OnInit {
   destroyGame(): void {
     this.randomData = [];
     this.farkleLabel = false;
-    this.currentTurn = this.farkleCount = this.farkleMultiplier = 0;
+    this.currentTurn = this.farkleCount = 0;
     this.turns = [];
   }
 
